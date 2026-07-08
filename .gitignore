@@ -1,0 +1,11 @@
+.venv/
+.vscode/
+.idea/
+data/
+/data/archive
+*.pyc
+*.eps
+*.pkl
+*.zip
+*.jpeg
+get-pip.py
