@@ -1,0 +1,20 @@
+{
+    "data":{
+        "sample_size":500,
+        "feature_number":300,
+        "label_number":10,
+        "avg_label_number":4,
+        "cal_size":0.3,
+        "proper_cal_size":0.5
+    },
+    "predictor":
+    {
+        "log_lam_min":-2,
+        "log_lam_max":4,
+        "lam_base":10,
+        "lam_number":200
+    },
+    "risk":{
+        "control_level":0.25
+    }
+}

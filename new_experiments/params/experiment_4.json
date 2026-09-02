@@ -1,0 +1,19 @@
+{
+    "data":{
+        "sample_size":500,
+        "feature_number":300,
+        "label_number":10,
+        "avg_label_number":4,
+        "cal_size":0.3,
+        "proper_cal_size":0.5
+    },
+    "predictor":
+    {
+        "min_hidden_layer_sizes":[10, 10, 10, 10],
+        "max_hidden_layer_sizes":[100, 100, 100, 100],
+        "lam_numbers":[50, 100, 200, 400]
+    },
+    "risk":{
+        "control_level":0.25
+    }
+}

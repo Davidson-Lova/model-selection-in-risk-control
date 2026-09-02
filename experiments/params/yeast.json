@@ -1,0 +1,17 @@
+{
+    "data":{
+        "cal_size":0.3,
+        "proper_cal_size":0.5,
+        "label_number":14
+    },
+    "predictor":
+    {
+        "log_lam_min":-2,
+        "log_lam_max":4,
+        "lam_base":10,
+        "lam_number":200
+    },
+    "risk":{
+        "control_level":0.1
+    }
+}
