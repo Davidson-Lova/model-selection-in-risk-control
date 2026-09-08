@@ -19,7 +19,7 @@ In order to run the experiment,
 first, comment-out in the 7th cell in `experiment.ipynb` the lines corresponding to the previous experiment, then uncomment the lines corresponding to this experiment.
 Finally, run `experiment.ipynb`.
 
-It may take some time to finish. As a reference, it took about 6 hours on my personal computer.
+It may take some time to finish. As a reference, it took about 6 hours and 30 minutes on my personal computer.
 
 
 ## How to display the results
