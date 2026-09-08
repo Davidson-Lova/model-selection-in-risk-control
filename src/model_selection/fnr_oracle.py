@@ -1,8 +1,56 @@
 import numpy as np
 from ..conformal_risk_control.fnr import (
-    make_FNR_empirical_risk, compute_order, size_function
+    make_FNR_empirical_risk,
+    compute_order,
+    size_function,
 )
 
+
+def compute_oracle_orders_and_sizes(
+    outputs_calibration,
+    probas_calibration_per_predictor,
+    output_test,
+    proba_test_per_predictor,
+    risk_control_level,
+):
+    oracle_risk_per_predictor = [
+        make_FNR_empirical_risk(
+            np.concatenate((outputs_calibration, output_test)),
+            np.concatenate((probas_calibration, proba_test)),
+        )
+        for probas_calibration, proba_test in zip(
+            probas_calibration_per_predictor, proba_test_per_predictor
+        )
+    ]
+    oracle_change_points_per_predictor = [
+        np.concatenate(
+            (
+                [0.0],
+                np.sort(
+                    1 - (np.concatenate((probas_calibration, proba_test))).flatten()
+                ),
+                [1.0],
+            )
+        )
+        for probas_calibration, proba_test in zip(
+            probas_calibration_per_predictor, proba_test_per_predictor
+        )
+    ]
+    oracle_order_per_predictor = np.array([
+        compute_order(risk, risk_control_level, change_points)
+        for risk, change_points in zip(
+            oracle_risk_per_predictor, oracle_change_points_per_predictor
+        )
+    ])
+    oracle_size_per_predictor = np.array([
+        size_function(np.concatenate((probas_calibration, proba_test)), order)
+        for probas_calibration, proba_test, order in zip(
+            probas_calibration_per_predictor,
+            proba_test_per_predictor,
+            oracle_order_per_predictor,
+        )
+    ])
+    return oracle_order_per_predictor, oracle_size_per_predictor
 
 
 def compute_oracle_prediction_set(
@@ -25,7 +73,9 @@ def compute_oracle_prediction_set(
         np.concatenate(
             (
                 [0.0],
-                np.sort(1 - (np.concatenate((probas_calibration, proba_test))).flatten()),
+                np.sort(
+                    1 - (np.concatenate((probas_calibration, proba_test))).flatten()
+                ),
                 [1.0],
             )
         )
@@ -34,9 +84,7 @@ def compute_oracle_prediction_set(
         )
     ]
     oracle_order_per_predictor = [
-        compute_order(
-            risk, risk_control_level, change_points
-        )
+        compute_order(risk, risk_control_level, change_points)
         for risk, change_points in zip(
             oracle_risk_per_predictor, oracle_change_points_per_predictor
         )

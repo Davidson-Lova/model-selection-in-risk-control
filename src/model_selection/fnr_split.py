@@ -1,10 +1,14 @@
 import numpy as np
 from ..conformal_risk_control.fnr import (
-    make_FNR_upper_empirical_risk, compute_order, size_function
+    make_FNR_upper_empirical_risk,
+    compute_order,
+    size_function,
 )
 
 
-def select_predictor_index(outputs_selection, probas_selection_per_predictor, risk_control_level):
+def select_predictor_index(
+    outputs_selection, probas_selection_per_predictor, risk_control_level
+):
     selection_change_points_per_predictor = [
         np.concatenate(
             (
@@ -21,9 +25,7 @@ def select_predictor_index(outputs_selection, probas_selection_per_predictor, ri
         for probas_selection in probas_selection_per_predictor
     ]
     selection_upper_order_per_predictor = [
-        compute_order(
-            risk, risk_control_level, change_points
-        )
+        compute_order(risk, risk_control_level, change_points)
         for risk, change_points in zip(
             selection_risk_per_predictor, selection_change_points_per_predictor
         )

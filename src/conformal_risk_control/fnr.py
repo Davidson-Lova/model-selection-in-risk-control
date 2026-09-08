@@ -12,8 +12,10 @@ def make_FNR_empirical_risk(outputs, probas):
 
     return FNR_empirical_risk
 
+
 def make_FNR_lower_empirical_risk(outputs, probas):
     sample_size = outputs.shape[0]
+
     def FNR_lower_empirical_risk(order):
         tmp = (
             (np.logical_and(outputs, probas < 1 - order)).sum(axis=1)
@@ -23,8 +25,10 @@ def make_FNR_lower_empirical_risk(outputs, probas):
 
     return FNR_lower_empirical_risk
 
+
 def make_FNR_upper_empirical_risk(outputs, probas):
     sample_size = outputs.shape[0]
+
     def FNR_upper_empirical_risk(order):
         tmp = (
             (np.logical_and(outputs, probas < 1 - order)).sum(axis=1)
@@ -34,21 +38,23 @@ def make_FNR_upper_empirical_risk(outputs, probas):
 
     return FNR_upper_empirical_risk
 
+
 def size_function(probas, order):
     return (probas >= 1 - order).sum(axis=1).mean()
 
-def compute_order(
-    risk, risk_control_level, change_points
-):
-    index = dichotomy_search(
-        lambda q: (risk(q) - risk_control_level), change_points
-    )
+
+def compute_order(risk, risk_control_level, change_points):
+    index = dichotomy_search(lambda q: (risk(q) - risk_control_level), change_points)
     return change_points[index]
 
 
 def compute_prediction_set(
-    predictor, inputs_calibration, output_calibrations, input_test, risk_control_level,
-    apply_softmax=False
+    predictor,
+    inputs_calibration,
+    output_calibrations,
+    input_test,
+    risk_control_level,
+    apply_softmax=False,
 ):
     if apply_softmax:
         probas_calibration = softmax(predictor.predict_proba(inputs_calibration))
@@ -62,11 +68,9 @@ def compute_prediction_set(
             [1.0],
         )
     )
-    
+
     upper_risk = make_FNR_upper_empirical_risk(output_calibrations, probas_calibration)
-    upper_order = compute_order(
-        upper_risk, risk_control_level, change_points
-    )
+    upper_order = compute_order(upper_risk, risk_control_level, change_points)
 
     proba_test = predictor.predict_proba(input_test)
     prediction_set = np.int64(proba_test >= 1 - upper_order)

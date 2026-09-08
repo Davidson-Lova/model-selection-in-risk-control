@@ -1,0 +1,21 @@
+{
+    "data":{
+        "sample_sizes":[500],
+        "feature_number":100,
+        "label_number":10,
+        "avg_label_number":5,
+        "cal_size":0.3,
+        "proper_cal_size":0.5
+    },
+    "predictor":{
+        "n_estimators_min":10,
+        "n_estimators_max":100,
+        "criterion":[
+            "gini", "entropy"
+        ],
+        "lam_numbers":[30, 40, 50]
+    },
+    "risk":{
+        "control_level":0.2
+    }
+}

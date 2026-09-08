@@ -8,4 +8,5 @@ data/
 *.pkl
 *.zip
 *.jpeg
+*.png
 get-pip.py

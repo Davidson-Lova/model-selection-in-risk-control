@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def dichotomy_search(func, change_points):
     cardinal = change_points.shape[0]
     left_index = 0
