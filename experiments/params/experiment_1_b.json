@@ -1,6 +1,6 @@
 {
     "data":{
-        "sample_sizes":[500, 1000],
+        "sample_sizes":[1000],
         "feature_number":100,
         "label_number":10,
         "avg_label_number":5,
@@ -13,7 +13,7 @@
         "criterion":[
             "gini", "entropy"
         ],
-        "lam_numbers":[20, 30, 40, 50]
+        "lam_numbers":[10, 20, 30, 40, 50]
     },
     "risk":{
         "control_level":0.2

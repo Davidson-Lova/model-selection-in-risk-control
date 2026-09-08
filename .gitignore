@@ -1,12 +1,9 @@
 .venv/
 .vscode/
-.idea/
-data/
-/data/archive
 *.pyc
 *.eps
 *.pkl
 *.zip
 *.jpeg
 *.png
-get-pip.py
+experiments/results/
